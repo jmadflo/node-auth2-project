@@ -56,7 +56,7 @@ router.post('/login', (req, res) => {
             })
     } else {
         res.status(400).json({
-            message: 'please provide username and password and the password shoud be alphanumeric',
+            message: 'You shall not pass!',
         })
     }
 })
