@@ -20,6 +20,7 @@ router.post('/register', (req, res) => {
         // save the user to the database
         Users.add(credentials)
             .then(user => {
+                // client now gets a token after registering
                 const token = createToken(user)
                 res.status(201).json({ data: user, token })
             })
