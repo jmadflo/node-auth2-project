@@ -17,11 +17,11 @@ router.post('/register', (req, res) => {
         const hash = bcryptjs.hashSync(credentials.password, rounds)
 
         credentials.password = hash
-
         // save the user to the database
         Users.add(credentials)
             .then(user => {
-                res.status(201).json({ data: user })
+                const token = createToken(user)
+                res.status(201).json({ data: user, token })
             })
             .catch(error => {
                 res.status(500).json({ message: error.message })
@@ -64,7 +64,7 @@ function createToken(user) {
     const payload = {
         sub: user.id,
         username: user.username,
-        role: user.role,
+        department: user.department,
     }
 
     const secret = process.env.JWT_SECRET || 'keepitsecret,keepitsafe!'
